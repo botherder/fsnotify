@@ -15,7 +15,7 @@ import (
 // Event represents a single file system notification.
 type Event struct {
 	Name string // Relative path to the file or directory.
-	Op   Op     // File operation that triggered the event.
+	Op   Op	    // File operation that triggered the event.
 }
 
 // Op describes a set of file operations.
@@ -29,6 +29,7 @@ const (
 	Rename
 	Chmod
 	Access
+	Open
 )
 
 func (op Op) String() string {
@@ -52,6 +53,9 @@ func (op Op) String() string {
 	}
 	if op&Access == Access {
 		buffer.WriteString("|ACCESS")
+	}
+	if op&Open == Open {
+		buffer.WriteString("|OPEN")
 	}
 	if buffer.Len() == 0 {
 		return ""
